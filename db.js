@@ -1,5 +1,5 @@
 const User = require("./dbmodels/User");
-const Movie = require("./dbmodels/Movie");
+const Video = require("./dbmodels/Video");
 
 const upsertUser = async (walletAddress, username) => {
     const user = new User({ walletAddress: walletAddress, userName: username });
@@ -15,8 +15,20 @@ const getMovie = async (movieId) => {
     return Movie.find({ movieId: movieId });
 };
 
+const getUser = async (walletAddress) => {
+    return User.findOne({ walletAddress: walletAddress });
+};
+
+const createUser = async (walletAddress) => {
+    const user = new User({ walletAddress: walletAddress, userName: walletAddress });
+    user.save();
+    return user;
+};
+
 module.exports = {
     upsertUser,
     getMovie,
-    insertMovie
+    insertMovie,
+    getUser,
+    createUser
 };
